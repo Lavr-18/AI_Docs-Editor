@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Editor</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            margin: 0;
+        }
+        .header {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .header button {
+            background-color: #ffc107;
+            color: #333;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .header button:hover {
+            background-color: #e0a800;
+        }
+        .main-content {
+            display: flex;
+            flex: 1;
+            padding: 20px;
+            gap: 20px;
+        }
+        .sidebar {
+            flex: 0 0 250px;
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            overflow-y: auto;
+        }
+        .editor-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .ai-section {
+            flex: 0 0 300px;
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+        #documentTitle {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1.2em;
+            box-sizing: border-box;
+        }
+        #editor-area {
+            flex: 1;
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1em;
+            resize: vertical;
+            box-sizing: border-box;
+        }
+        .ai-section textarea {
+            flex: 1;
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1em;
+            resize: vertical;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+        }
+        .ai-section button {
+            width: 100%;
+        }
+        .document-list ul {
+            list-style: none;
+            padding: 0;
+        }
+        .document-list li {
+            background-color: #e9ecef;
+            margin-bottom: 5px;
+            padding: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .document-list li:hover {
+            background-color: #dee2e6;
+        }
+        .document-list li button {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8em;
+        }
+        .document-list li button:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>AI Document Editor</h1>
+        <button id="logoutButton">Logout</button>
+    </div>
+
+    <div class="main-content">
+        <div class="sidebar">
+            <h2>Your Documents</h2>
+            <form id="newDocumentForm">
+                <input type="text" id="newDocumentTitle" placeholder="New document title" required>
+                <button type="submit">Create Document</button>
+            </form>
+            <div class="document-list">
+                <ul id="documentsList">
+                    <!-- Documents will be loaded here -->
+                </ul>
+            </div>
+        </div>
+
+        <div class="editor-section">
+            <input type="text" id="documentTitle" placeholder="Document Title" disabled>
+            <textarea id="editor-area" placeholder="Start typing your document here..."></textarea>
+            <button id="saveDocumentButton">Save Document</button>
+        </div>
+
+        <div class="ai-section">
+            <h2>AI Assistant</h2>
+            <textarea id="aiPrompt" placeholder="Ask the AI assistant..."></textarea>
+            <button id="sendAiPromptButton">Send to AI</button>
+            <div id="aiResponse"></div>
+        </div>
+    </div>
+
+    <script src="/static/js/main.js"></script>
+</body>
+</html>
