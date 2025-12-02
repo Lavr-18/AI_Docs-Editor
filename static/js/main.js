@@ -106,7 +106,7 @@ let currentDocumentId = null;
 
 async function loadDocuments() {
     try {
-        const documents = await apiCall('GET', '/documents');
+        const documents = await apiCall('GET', '/documents/'); // Added trailing slash
         const documentsList = document.getElementById('documentsList');
         documentsList.innerHTML = '';
         documents.forEach(doc => {
@@ -128,9 +128,12 @@ async function loadDocuments() {
 async function createDocument(event) {
     event.preventDefault();
     const newDocumentTitleInput = document.getElementById('newDocumentTitle');
-    const title = newDocumentTitleInput.value;
+    const title = newDocumentTitleInput.value.trim(); // Trim whitespace
 
-    if (!title) return;
+    if (!title) {
+        alert("Document title cannot be empty.");
+        return;
+    }
 
     try {
         const newDoc = await apiCall('POST', '/documents/', { title });
@@ -162,7 +165,7 @@ async function saveDocumentContent() {
     }
     const content = document.getElementById('editor-area').value;
     try {
-        await apiCall('PUT', `/documents/${currentDocumentId}`, content);
+        await apiCall('PUT', `/documents/${currentDocumentId}`, { content: content });
         alert('Document saved successfully!');
     } catch (error) {
         console.error('Failed to save document:', error);

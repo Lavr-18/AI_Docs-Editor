@@ -1,5 +1,5 @@
 import os
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status, Body
 from sqlalchemy.orm import Session
 from typing import List
 
@@ -55,7 +55,7 @@ def get_document_content(document_id: int, db: Session = Depends(get_db), curren
         return f.read()
 
 @router.put("/{document_id}", status_code=status.HTTP_204_NO_CONTENT)
-def update_document_content(document_id: int, content: str, db: Session = Depends(get_db), current_user: models.User = Depends(get_current_user)):
+def update_document_content(document_id: int, content: str = Body(..., embed=True), db: Session = Depends(get_db), current_user: models.User = Depends(get_current_user)):
     db_document = db.query(models.Document).filter(models.Document.id == document_id, models.Document.owner_id == current_user.id).first()
     if not db_document:
         raise HTTPException(status_code=404, detail="Document not found")
