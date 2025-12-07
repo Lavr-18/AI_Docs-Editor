@@ -1,6 +1,6 @@
 .loginPage {
     min-height: 100vh;
-    background: linear-gradient(135deg, var(--primary-50) 0%, #f3f4f6 100%);
+    background: linear-gradient(135deg, var(--primary-50) 0%, var(--gray-100) 100%);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -10,7 +10,7 @@
 .loginCard {
     width: 100%;
     max-width: 28rem;
-    background-color: white;
+    background-color: var(--gray-100);
     border-radius: var(--radius-2xl);
     box-shadow: var(--shadow-xl);
     padding: var(--spacing-8);
@@ -49,6 +49,12 @@
     display: flex;
     flex-direction: column;
     gap: var(--spacing-6);
+}
+
+/* Стили для полей ввода на странице логина */
+.form :global(.input) {
+    background-color: var(--gray-200) !important;
+    color: var(--gray-900) !important;
 }
 
 .error {

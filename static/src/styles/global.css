@@ -19,6 +19,13 @@ body {
     line-height: 1.5;
 }
 
+/* Добавляем стили для заголовков, чтобы они наследовали цвет текста */
+h1, h2, h3, h4, h5, h6 {
+    color: inherit; /* Наследует цвет от родителя (body) */
+    margin-bottom: var(--spacing-4); /* Добавим немного отступа для красоты */
+}
+
+
 button {
     font-family: inherit;
     cursor: pointer;

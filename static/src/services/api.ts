@@ -33,7 +33,7 @@ api.interceptors.response.use(
 
 export const authAPI = {
     login: (credentials: LoginCredentials) =>
-        axios.post(`${API_BASE_URL}/auth/token`,
+        axios.post(`${API_BASE_URL}/api/auth/token`, // <-- Добавлен /api
             new URLSearchParams({
                 username: credentials.email,
                 password: credentials.password,
@@ -42,7 +42,7 @@ export const authAPI = {
             }),
 
     register: (credentials: RegisterCredentials) =>
-        api.post('/auth/register', credentials),
+        api.post('/api/auth/register', credentials), // <-- Добавлен /api
 
     logout: () => {
         localStorage.removeItem('accessToken');
@@ -50,20 +50,20 @@ export const authAPI = {
 };
 
 export const documentsAPI = {
-    getAll: () => api.get<Document[]>('/documents/'),
+    getAll: () => api.get<Document[]>('/api/documents/'), // <-- Добавлен /api
 
-    getById: (id: number) => api.get<string>(`/documents/${id}`),
+    getById: (id: number) => api.get<string>(`/api/documents/${id}`), // <-- Добавлен /api
 
     create: (title: string) =>
-        api.post<Document>('/documents/', { title }),
+        api.post<Document>('/api/documents/', { title }), // <-- Добавлен /api
 
     update: (id: number, content: string) =>
-        api.put(`/documents/${id}`, { content }),
+        api.put(`/api/documents/${id}`, { content }), // <-- Добавлен /api
 
-    delete: (id: number) => api.delete(`/documents/${id}`),
+    delete: (id: number) => api.delete(`/api/documents/${id}`), // <-- Добавлен /api
 
     assist: (id: number, data: AIRequest) =>
-        api.post<string>(`/documents/${id}/assist`, data),
+        api.post<string>(`/api/documents/${id}/assist`, data), // <-- Добавлен /api
 };
 
 export default api;

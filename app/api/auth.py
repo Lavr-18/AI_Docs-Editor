@@ -12,7 +12,7 @@ from app.core.security import create_access_token, get_password_hash, verify_pas
 from app.core.config import settings
 
 router = APIRouter()
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/token")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/auth/token")
 
 def get_db():
     db = SessionLocal()

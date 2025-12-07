@@ -120,3 +120,6 @@ dmypy.json
 
 # database
 test.db
+
+# User generated content
+/user_documents/

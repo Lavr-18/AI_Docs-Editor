@@ -8,13 +8,9 @@ from app.db.database import SessionLocal
 from app.schemas.document import Document, DocumentCreate, AiRequest
 from app.services.openai_service import get_ai_suggestion
 from app.api.auth import get_current_user
+from app.core.config import settings
 
 router = APIRouter()
-PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-DOCUMENTS_DIR = os.path.join(PROJECT_ROOT, "user_documents")
-
-if not os.path.exists(DOCUMENTS_DIR):
-    os.makedirs(DOCUMENTS_DIR)
 
 def get_db():
     db = SessionLocal()
@@ -30,8 +26,7 @@ def create_document(document: DocumentCreate, db: Session = Depends(get_db), cur
     db.commit()
     db.refresh(db_document)
     
-    # Create an empty file for the document
-    file_path = os.path.join(DOCUMENTS_DIR, f"{db_document.id}.txt")
+    file_path = os.path.join(settings.DOCUMENTS_DIR, f"{db_document.id}.txt")
     with open(file_path, "w") as f:
         f.write("")
         
@@ -47,7 +42,7 @@ def get_document_content(document_id: int, db: Session = Depends(get_db), curren
     if not db_document:
         raise HTTPException(status_code=404, detail="Document not found")
     
-    file_path = os.path.join(DOCUMENTS_DIR, f"{document_id}.txt")
+    file_path = os.path.join(settings.DOCUMENTS_DIR, f"{document_id}.txt")
     if not os.path.exists(file_path):
          raise HTTPException(status_code=404, detail="Document file not found")
     
@@ -60,9 +55,24 @@ def update_document_content(document_id: int, content: str = Body(..., embed=Tru
     if not db_document:
         raise HTTPException(status_code=404, detail="Document not found")
         
-    file_path = os.path.join(DOCUMENTS_DIR, f"{document_id}.txt")
+    file_path = os.path.join(settings.DOCUMENTS_DIR, f"{document_id}.txt")
     with open(file_path, "w") as f:
         f.write(content)
+
+@router.delete("/{document_id}", status_code=status.HTTP_204_NO_CONTENT)
+def delete_document(document_id: int, db: Session = Depends(get_db), current_user: models.User = Depends(get_current_user)):
+    db_document = db.query(models.Document).filter(models.Document.id == document_id, models.Document.owner_id == current_user.id).first()
+    if not db_document:
+        raise HTTPException(status_code=404, detail="Document not found")
+
+    # Удаляем файл
+    file_path = os.path.join(settings.DOCUMENTS_DIR, f"{document_id}.txt")
+    if os.path.exists(file_path):
+        os.remove(file_path)
+
+    # Удаляем запись из БД
+    db.delete(db_document)
+    db.commit()
 
 @router.post("/{document_id}/assist", response_model=str)
 def get_ai_suggestion_for_document(document_id: int, request: AiRequest, db: Session = Depends(get_db), current_user: models.User = Depends(get_current_user)):
