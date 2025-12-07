@@ -1,0 +1,271 @@
+.editorPage {
+    min-height: 100vh;
+    background-color: var(--gray-50);
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header */
+.header {
+    background-color: white;
+    box-shadow: var(--shadow-sm);
+    border-bottom: 1px solid var(--gray-200);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.headerContent {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 4rem;
+    padding: 0 var(--spacing-6);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-3);
+}
+
+.logoIcon {
+    color: var(--primary-600);
+    width: 1.75rem;
+    height: 1.75rem;
+}
+
+.logoText {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--gray-900);
+}
+
+/* Main Content */
+.mainContent {
+    flex: 1;
+    padding: var(--spacing-8) var(--spacing-6);
+}
+
+.contentGrid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-8);
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+@media (min-width: 1024px) {
+    .contentGrid {
+        grid-template-columns: 1fr 2fr 1fr;
+        gap: var(--spacing-8);
+    }
+}
+
+/* Sidebar */
+.sidebar {
+    background-color: white;
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-md);
+    padding: var(--spacing-6);
+    height: fit-content;
+}
+
+.sidebarTitle {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--gray-900);
+    margin-bottom: var(--spacing-4);
+}
+
+.newDocForm {
+    display: flex;
+    gap: var(--spacing-2);
+    margin-bottom: var(--spacing-6);
+}
+
+.documentsList {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-2);
+}
+
+.documentItem {
+    padding: var(--spacing-3);
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.documentItem:hover {
+    background-color: var(--gray-50);
+}
+
+.documentItem.active {
+    background-color: var(--primary-50);
+    border: 1px solid var(--primary-200);
+}
+
+.documentInfo {
+    flex: 1;
+    min-width: 0;
+}
+
+.documentTitle {
+    font-weight: 500;
+    color: var(--gray-900);
+    margin-bottom: var(--spacing-1);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.documentDate {
+    font-size: 0.75rem;
+    color: var(--gray-500);
+}
+
+.emptyState {
+    text-align: center;
+    color: var(--gray-500);
+    padding: var(--spacing-8) 0;
+}
+
+.loading {
+    display: flex;
+    justify-content: center;
+    padding: var(--spacing-8) 0;
+}
+
+/* Editor Section */
+.editorSection {
+    background-color: white;
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-md);
+    padding: var(--spacing-6);
+    display: flex;
+    flex-direction: column;
+    min-height: 600px;
+}
+
+.editorHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-6);
+}
+
+.editorTitle {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--gray-900);
+}
+
+.editorSubtitle {
+    font-size: 0.875rem;
+    color: var(--gray-500);
+    margin-top: var(--spacing-1);
+}
+
+.editorTextarea {
+    flex: 1;
+    min-height: 400px;
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    line-height: 1.6;
+}
+
+/* AI Assistant Section */
+.aiSection {
+    background: linear-gradient(135deg, var(--primary-50) 0%, #f3f4f6 100%);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-md);
+    padding: var(--spacing-6);
+    height: fit-content;
+    position: sticky;
+    top: var(--spacing-8);
+}
+
+.aiHeader {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
+    margin-bottom: var(--spacing-6);
+}
+
+.aiIcon {
+    color: var(--primary-600);
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.aiTitle {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--gray-900);
+}
+
+.aiPrompt {
+    margin-bottom: var(--spacing-4);
+}
+
+.aiExamples {
+    margin-top: var(--spacing-6);
+    padding: var(--spacing-4);
+    background-color: white;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--gray-200);
+}
+
+.examplesTitle {
+    font-weight: 500;
+    color: var(--gray-700);
+    margin-bottom: var(--spacing-2);
+}
+
+.examplesList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.examplesList li {
+    font-size: 0.875rem;
+    color: var(--gray-600);
+    margin-bottom: var(--spacing-2);
+    position: relative;
+    padding-left: var(--spacing-4);
+}
+
+.examplesList li:before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: var(--primary-500);
+}
+
+.aiResponse {
+    margin-top: var(--spacing-4);
+    padding: var(--spacing-4);
+    background-color: white;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--gray-200);
+    font-size: 0.875rem;
+    color: var(--gray-700);
+    animation: fadeIn 0.2s ease-out;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
